@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.local
+
+# Локальное состояние установки server'а
+data/
+
+# Logs / системные файлы
+*.log
+.DS_Store

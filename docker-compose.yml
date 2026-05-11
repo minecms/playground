@@ -1,0 +1,73 @@
+name: minecms-playground
+
+# Локальный сервис для playground-инстанса MineCMS.
+#
+# Запуск:    docker compose up -d
+# Остановка: docker compose down
+# Полный сброс (с удалением volumes): docker compose down -v
+#
+# Драйвер БД для playground — PostgreSQL 16. См. `playground/minecms/.env`.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: minecms-playground-postgres
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: minecms
+      POSTGRES_PASSWORD: minecms
+      POSTGRES_DB: minecms
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U minecms -d minecms']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # MinIO — локальная замена S3 для разработки. В production вместо неё ставится
+  # любой S3-совместимый сервис (AWS S3, Cloudflare R2, Backblaze B2, Yandex Object Storage и т.п.) —
+  # достаточно поправить S3_* env-переменные в `playground/minecms/.env`.
+  minio:
+    image: minio/minio:latest
+    container_name: minecms-playground-minio
+    restart: unless-stopped
+    command: server /data --console-address ':9001'
+    ports:
+      - '9000:9000' # S3 API
+      - '9001:9001' # MinIO Console
+    environment:
+      MINIO_ROOT_USER: minecms
+      MINIO_ROOT_PASSWORD: minecms-secret
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # Одноразовый init-контейнер: создаёт bucket `minecms-media` после старта MinIO.
+  # Без него server при первой загрузке упадёт с NoSuchBucket.
+  minio-init:
+    image: minio/mc:latest
+    container_name: minecms-playground-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minecms minecms-secret &&
+      mc mb --ignore-existing local/minecms-media &&
+      mc anonymous set download local/minecms-media
+      "
+
+volumes:
+  postgres_data:
+    name: minecms-playground-postgres-data
+  minio_data:
+    name: minecms-playground-minio-data

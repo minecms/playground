@@ -1,0 +1,25 @@
+{
+  "name": "playground-minecms",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Playground-инстанс MineCMS — пользовательский путь: реальные схемы, реальная БД, реальный API.",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm dev:server",
+    "dev:server": "tsx watch --env-file=.env --watch-path=../../minecms/apps/server/src --watch-path=../../minecms/packages/core/src ../../minecms/apps/server/src/index.ts",
+    "dev:studio": "pnpm -C ../../minecms --filter @minecms/studio dev",
+    "build:studio": "pnpm -C ../../minecms --filter @minecms/studio build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@minecms/core": "workspace:*",
+    "@minecms/sdk": "workspace:*",
+    "@minecms/server": "workspace:*"
+  },
+  "devDependencies": {
+    "@minecms/studio": "workspace:*",
+    "@types/node": "catalog:",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

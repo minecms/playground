@@ -1,0 +1,38 @@
+---
+description: Правила работы внутри playground/. Применяются автоматически.
+alwaysApply: true
+globs:
+  - 'playground/**'
+---
+
+# Playground — правила
+
+`playground/` — это **демонстрационный пользовательский путь**, не часть монорепо MineCMS. Внутри живут два проекта:
+
+- `playground/minecms/` — пользовательский CMS-инстанс с реальными схемами и реальной БД.
+- `playground/demo/` — публичный сайт, потребляющий MineCMS через `@minecms/sdk`.
+
+## Запреты
+
+1. **Никаких mock-данных, фейков, hardcoded-ответов в `playground/`.** Реальные схемы → реальные миграции → реальная БД (MySQL/PostgreSQL) → реальный REST/tRPC API. Если данных нет — пользователь создаёт их через Studio.
+2. **Не редактировать пакеты CMS из playground.** Файлы `node_modules/@minecms/*` — это symlink-и к `../../minecms/packages/*` и `../../minecms/apps/*`. Любое изменение нужно делать **в исходниках монорепо**, не в symlink-копиях.
+3. **Не активировать UI-dev-режим Studio (`MINECMS_DEV_MODE=ui`) в playground.** Этот режим существует исключительно для разработки самой админки в `minecms/apps/studio/`. В playground Studio запускается в real-режиме и общается с настоящим server.
+4. **Не править структуру самого пакета `@minecms/*`.** Если нужны новые поля/компоненты — это задача для `ROADMAP.md` в монорепо MineCMS, не для playground.
+
+## Что разрешено
+
+- Менять `playground/minecms/schemas/*` — добавлять новые схемы и поля для демонстрации.
+- Менять `playground/minecms/minecms.config.ts` — переключать MySQL/PostgreSQL, добавлять CORS-origin'ы и т. п.
+- Менять `playground/demo/src/*` — расширять сайт-потребитель.
+- Обновлять `playground/.env.example` и `docker-compose.yml`.
+
+## Workflow
+
+1. CMS-проект (`playground/minecms`) запускается командой `pnpm dev` (server) и `pnpm dev:studio` (Studio).
+2. Сайт (`playground/demo`) запускается командой `pnpm dev` отдельно.
+3. Изменения в схемах применяются автоматически при следующем старте server'а (см. `MINECMS_AUTO_MIGRATE`).
+4. Все три процесса работают параллельно: 3333 (server), 5173 (Studio), 5174 (сайт).
+
+## При сомнениях
+
+Если непонятно, относится ли изменение к playground или к самому CMS, **скорее всего к CMS**: playground существует исключительно для демонстрации возможностей продукта, а не как поле для расширения функциональности.

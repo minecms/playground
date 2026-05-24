@@ -15,10 +15,10 @@
   "dependencies": {
     "@minecms/core": "workspace:*",
     "@minecms/sdk": "workspace:*",
-    "@minecms/server": "workspace:*"
+    "@minecms/server": "workspace:*",
+    "@minecms/studio": "workspace:*"
   },
   "devDependencies": {
-    "@minecms/studio": "workspace:*",
     "@types/node": "catalog:",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

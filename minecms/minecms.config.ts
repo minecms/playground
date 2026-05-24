@@ -12,7 +12,7 @@ import { contentStructure } from './structure';
  */
 export default defineConfig({
   database: {
-    driver: 'mysql',
+    driver: 'postgres',
   },
   schemas: [...schemaTypes],
   studioStructure: contentStructure,

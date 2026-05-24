@@ -18,7 +18,7 @@ export default defineConfig({
   studioStructure: contentStructure,
   server: {
     port: 3333,
-    cors: ['http://localhost:5173', 'http://localhost:3000'],
+    cors: ['http://localhost:3000'],
   },
 });
 

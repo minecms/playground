@@ -7,7 +7,7 @@ export interface FriendlyError {
   technical: string;
 }
 
-const STUDIO_URL = process.env.NEXT_PUBLIC_STUDIO_URL ?? 'http://localhost:5173';
+const STUDIO_URL = process.env.NEXT_PUBLIC_STUDIO_URL ?? 'http://localhost:3333/admin';
 
 export function toFriendlyError(err: unknown): FriendlyError {
   const technical = describe(err);

@@ -14,14 +14,14 @@
 ```bash
 docker compose up -d
 
-# CMS: server :3333, Studio :5173
-cd minecms && pnpm install && pnpm dev
+# CMS: server + Studio на :3333 (/admin)
+cd minecms && pnpm install && pnpm build:studio && pnpm dev
 
 # Сайт :3000 (отдельный терминал)
 cd demo && pnpm install && pnpm dev
 ```
 
-1. Открой Studio → install-визард → создай документ.
+1. Открой <http://localhost:3333/admin> → install-визард → создай документ.
 2. Открой `http://localhost:3000` — сайт подтянет те же данные через SDK.
 
 ## Подробнее

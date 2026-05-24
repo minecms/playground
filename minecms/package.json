@@ -9,6 +9,7 @@
     "dev:server": "tsx watch --env-file=.env --watch-path=../../minecms/apps/server/src --watch-path=../../minecms/packages/core/src ../../minecms/apps/server/src/index.ts",
     "dev:studio": "pnpm -C ../../minecms --filter @minecms/studio dev",
     "build:studio": "pnpm -C ../../minecms --filter @minecms/studio build",
+    "watch:studio": "pnpm -C ../../minecms --filter @minecms/studio exec vite build --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

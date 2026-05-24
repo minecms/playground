@@ -4,7 +4,7 @@
   "private": true,
   "description": "Демонстрационный публичный сайт-потребитель MineCMS — Next.js 16 (App Router) + Tailwind v4 + shadcn/ui + Motion, данные через @minecms/sdk.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"

@@ -8,4 +8,4 @@ pnpm install
 pnpm dev
 ```
 
-ENV: `NEXT_PUBLIC_CMS_URL` (по умолчанию `http://localhost:3333`), `NEXT_PUBLIC_STUDIO_URL` (для подсказок в UI).
+ENV: `NEXT_PUBLIC_CMS_URL` (по умолчанию `http://localhost:3333`), `NEXT_PUBLIC_STUDIO_URL` (по умолчанию `http://localhost:3333/admin`).

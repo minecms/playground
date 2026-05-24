@@ -44,17 +44,14 @@ pnpm install
 
 ## Запуск
 
-В двух терминалах:
-
 ```bash
-# Терминал 1 — backend (Fastify + tRPC + REST на 3333)
-pnpm dev
-
-# Терминал 2 — Studio (Vite на 5173)
-pnpm dev:studio
+pnpm build:studio   # один раз (или при изменениях в @minecms/studio)
+pnpm dev            # Fastify + tRPC + REST + Studio на :3333
 ```
 
-При первом запуске Studio откроется на `/install` — пройди визард:
+Открой **Studio**: <http://localhost:3333/admin>
+
+При первом запуске Studio откроется на `/admin/install` — пройди визард:
 1. Шаг 1 «База данных» — драйвер и URL уже подставлены из `.env`.
 2. Шаг 2 «Администратор» — e-mail и пароль для будущего входа.
 3. Шаг 3 «Готово» — переход на `/login`.
@@ -70,7 +67,7 @@ pnpm dev:studio
 | `MINECMS_AUTO_MIGRATE=true` | применять диффы при старте (по умолчанию) |
 | `MINECMS_ALLOW_DATA_LOSS=false` | разрешать DROP/RENAME колонок и `ADD UNIQUE` на существующих данных. По умолчанию `false` — сервер всё равно применит безопасные `CREATE TABLE` и `ADD COLUMN nullable`, опасные пропустит и сообщит в логе. |
 
-## Медиа (Phase 13)
+## Медиа
 
 Локально файлы хранятся в **MinIO** (S3-совместимый сервис из `playground/docker-compose.yml`). В production достаточно поменять `S3_*` переменные в `.env` на ваш AWS S3 / Cloudflare R2 / Backblaze B2 / Yandex Object Storage и т.п. — код менять не нужно.
 

@@ -7,7 +7,7 @@
 | [`minecms/`](./minecms/) | Пользовательский CMS-проект: схемы, конфиг, Docker (PostgreSQL, MinIO) |
 | [`demo/`](./demo/) | Публичный сайт на Next.js через `@minecms/sdk` |
 
-Структура повторяет результат `npx create-minecms-app`.
+Структура повторяет результат `npm create @minecms/minecms-app`.
 
 ## Быстрый старт
 

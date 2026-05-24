@@ -87,7 +87,7 @@ docker compose up -d
 Загруженные файлы появляются:
 
 - в Studio → раздел «Медиа» (иконка картинки в левом рельсе) — список с превью, alt-text, удаление;
-- в форме страницы → поле «Главная картинка» (Sanity-like dropzone «Drag or paste image here» + кнопки `Upload` / `Select`).
+- в форме страницы → поле «Главная картинка» (dropzone «Drag or paste image here» + кнопки `Upload` / `Select`).
 
 Размер файла ограничен `MEDIA_MAX_FILE_SIZE` в `.env` (по умолчанию 25 MB). Поддерживаемые форматы — `image/png`, `image/jpeg`, `image/webp`, `image/gif`.
 
